@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    flex: 0 0 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.calculator {
+    display: flex;
+    flex-wrap: wrap;
+}
