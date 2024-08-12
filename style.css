@@ -93,3 +93,9 @@ body {
 .btnCalc:hover, .btnOp:hover {
     background-color: #474747;;
 }
+
+@media (hover: none) {
+    .btnCalc:active, .btnOp {
+        background-color: #474747;
+    }
+}

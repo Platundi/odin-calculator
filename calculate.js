@@ -5,60 +5,63 @@ let resultLogArray = [];
 let calculateBufferArr = [];
 let currentString = "";
 let result = 0;
+let lastTouchEnd = 0;
 
 let screen = document.querySelector(".screen");
 let buttons = document.querySelectorAll(".btnCalc, .btnOp");
 buttons.forEach((btn, i) => {
-	btn.addEventListener("click", () => {
-		if (btn.textContent == "=") {
-			if (calculateArr) {
-				if (calculateBufferArr[calculateBufferArr.length - 2] == "=") {
-					// screen.textContent = btn.textContent;
-					calculateArr.splice(0, calculateArr.length - 1);
-				}
-			}
-			calculateArr = calculateArr.map((field) => (field == "," ? "." : field));
-			calculateArr.forEach((field) => {
-				if (["+", "-", "/", "*"].includes(field)) {
-					if (currentString) {
-						resultArr.push(currentString); // Push the concatenated string before the symbol
-					}
-					resultArr.push(field); // Push the symbol itself
-					currentString = ""; // Reset the current string for the next group
-				} else {
-					currentString += field; // Concatenate the numbers/characters
-				}
-			});
-			if (currentString) {
-				resultArr.push(currentString); // Zusammengeführte Nummern in neues Array
-			}
-			resultArr = stringToNum(resultArr);
-			result = calculate(resultArr);
-			result = result.toLocaleString("de-DE");
-			screen.textContent = result;
-			calculateArr.push(btn.textContent);
-			calculateBufferArr = calculateArr;
-			resultArr.push(btn.textContent);
-			logArray = [...resultArr];
-			logArray.push(result);
-			resultLogArray.push(result);
-			resultArr = [];
-		} else {
-			calculateArr.push(btn.textContent);
-			calculateBufferArr = calculateArr;
-			// "=" nicht zur Aneige bringen
-			screen.textContent += btn.textContent; //Aneigescreen updaten
-			if (calculateArr) {
-				if (calculateBufferArr[calculateBufferArr.length - 2] == "=") {
-					screen.textContent = btn.textContent;
-					// calculateArr.splice(0, calculateArr.length - 1);
-				}
-			}
-		}
-		if (btn.textContent != "=") {
-		}
-	});
+	btn.addEventListener("click", (event) => operate(event));
+	btn.addEventListener("touchend", (event) => operate(event));
 });
+
+function operate(event) {
+	if (event.type == "touchend") {
+		const now = new Date().getTime();
+		if (now - lastTouchEnd <= 300) {
+			event.preventDefault(); // Verhindert den Zoom
+		}
+		lastTouchEnd = now;
+	}
+	if (event.currentTarget.textContent == "=") {
+		calculateArr = calculateArr.map((field) => (field == "," ? "." : field));
+		calculateArr.forEach((field) => {
+			if (["+", "-", "/", "*"].includes(field)) {
+				if (currentString) {
+					resultArr.push(currentString); // Push the concatenated string before the symbol
+				}
+				resultArr.push(field); // Push the symbol itself
+				currentString = ""; // Reset the current string for the next group
+			} else {
+				currentString += field; // Concatenate the numbers/characters
+			}
+		});
+		if (currentString) {
+			resultArr.push(currentString); // Zusammengeführte Nummern in neues Array
+		}
+		resultArr = stringToNum(resultArr);
+		result = calculate(resultArr);
+		result = result.toLocaleString("de-DE");
+		screen.textContent = result;
+		calculateArr.push(event.currentTarget.textContent);
+		calculateBufferArr = calculateArr;
+		resultArr.push(event.currentTarget.textContent);
+		logArray = [...resultArr];
+		logArray.push(result);
+		resultLogArray.push(result);
+		resultArr = [];
+	} else {
+		calculateArr.push(event.currentTarget.textContent);
+		calculateBufferArr = calculateArr;
+		// "=" nicht zur Aneige bringen
+		screen.textContent += event.currentTarget.textContent; //Aneigescreen updaten
+		if (calculateArr) {
+			if (calculateBufferArr[calculateBufferArr.length - 2] == "=") {
+				screen.textContent = event.currentTarget.textContent;
+				calculateArr.splice(0, calculateArr.length - 1);
+			}
+		}
+	}
+}
 
 //function concatenateNum (field)
 
