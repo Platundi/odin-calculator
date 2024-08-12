@@ -5,22 +5,23 @@ let resultLogArray = [];
 let calculateBufferArr = [];
 let currentString = "";
 let result = 0;
-let lastTouchEnd = 0;
+let lastTouchTime = 0;
 
 let screen = document.querySelector(".screen");
 let buttons = document.querySelectorAll(".btnCalc, .btnOp");
 buttons.forEach((btn, i) => {
 	btn.addEventListener("click", (event) => operate(event));
-	btn.addEventListener("touchend", (event) => operate(event));
+	btn.addEventListener("touchstart", (event) => operate(event));
 });
 
 function operate(event) {
-	if (event.type == "touchend") {
-		const now = new Date().getTime();
-		if (now - lastTouchEnd <= 300) {
-			event.preventDefault(); // Verhindert den Zoom
+	if (event.type == "touchstart") {
+		const currentTime = new Date().getTime();
+		if (currentTime - lastTouchTime < 300) {
+			// 300ms ist ein typischer Zeitraum für Doppeltippen
+			event.preventDefault(); // Verhindert Doppeltippen
 		}
-		lastTouchEnd = now;
+		lastTouchTime = currentTime;
 	}
 	if (event.currentTarget.textContent == "=") {
 		calculateArr = calculateArr.map((field) => (field == "," ? "." : field));
