@@ -10,8 +10,14 @@ let lastTouchTime = 0;
 let screen = document.querySelector(".screen");
 let buttons = document.querySelectorAll(".btnCalc, .btnOp");
 buttons.forEach((btn, i) => {
-	btn.addEventListener("click", (event) => operate(event));
-	btn.addEventListener("touchstart", (event) => operate(event));
+	const isTouchDevice = "ontouchstart" in document.documentElement;
+	if (isTouchDevice) {
+		btn.addEventListener("touchstart", (event) => operate(event), {
+			passive: true,
+		});
+	} else {
+		btn.addEventListener("click", (event) => operate(event));
+	}
 });
 
 function operate(event) {
