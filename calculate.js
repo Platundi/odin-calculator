@@ -6,6 +6,7 @@ let calculateBufferArr = [];
 let currentString = "";
 let result = 0;
 let lastTouchTime = 0;
+let clear = false;
 
 let screen = document.querySelector(".screen");
 let buttons = document.querySelectorAll(".btnCalc, .btnOp");
@@ -52,20 +53,30 @@ function operate(event) {
 		calculateArr.push(event.currentTarget.textContent);
 		calculateBufferArr = calculateArr;
 		resultArr.push(event.currentTarget.textContent);
-		logArray = [...resultArr];
+		logArray.push(resultArr);
 		logArray.push(result);
 		resultLogArray.push(result);
 		resultArr = [];
+		clear = true;
 	} else {
-		calculateArr.push(event.currentTarget.textContent);
-		calculateBufferArr = calculateArr;
-		// "=" nicht zur Aneige bringen
-		screen.textContent += event.currentTarget.textContent; //Aneigescreen updaten
+		if (clear == true) {
+			calculateArr = [];
+			screen.textContent = event.currentTarget.textContent;
+			calculateArr.push(event.currentTarget.textContent);
+			calculateBufferArr = calculateArr;
+			currentString = "";
+			clear = false;
+		} else {
+			calculateArr.push(event.currentTarget.textContent);
+			calculateBufferArr = calculateArr;
+			screen.textContent += event.currentTarget.textContent; //Aneigescreen updaten
+		}
+
 		if (calculateArr) {
-			if (calculateBufferArr[calculateBufferArr.length - 2] == "=") {
+			/*if (calculateBufferArr[calculateBufferArr.length - 2] == "=") {
 				screen.textContent = event.currentTarget.textContent;
 				calculateArr.splice(0, calculateArr.length - 1);
-			}
+			} */
 		}
 	}
 }
