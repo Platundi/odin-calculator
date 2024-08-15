@@ -47,28 +47,35 @@ function operate(event) {
 			resultArr.push(currentString); // Zusammengeführte Nummern in neues Array
 		}
 		resultArr = stringToNum(resultArr);
-		result = calculate(resultArr);
-		result = result.toLocaleString("de-DE");
+		result = calculate(resultArr).toLocaleString("de-DE");
+		// result = result.toLocaleString("de-DE");
 		screen.textContent = result;
 		calculateArr.push(event.currentTarget.textContent);
-		calculateBufferArr = calculateArr;
+		//calculateBufferArr = calculateArr;
 		resultArr.push(event.currentTarget.textContent);
 		logArray.push(resultArr);
-		logArray.push(result);
+		logArray[logArray.length - 1].push(Number(result));
+		// logArray.push(result);
 		resultLogArray.push(result);
 		resultArr = [];
 		clear = true;
 	} else {
 		if (clear == true) {
 			calculateArr = [];
-			screen.textContent = event.currentTarget.textContent;
-			calculateArr.push(event.currentTarget.textContent);
-			calculateBufferArr = calculateArr;
-			currentString = "";
+			if (!["+", "-", "/", "*"].includes(event.currentTarget.textContent)) {
+				screen.textContent = event.currentTarget.textContent;
+				calculateArr.push(event.currentTarget.textContent);
+				//calculateBufferArr = calculateArr;
+				currentString = "";
+			} else {
+				screen.textContent += event.currentTarget.textContent;
+				calculateArr.push(result, event.currentTarget.textContent);
+				currentString = "";
+			}
 			clear = false;
 		} else {
 			calculateArr.push(event.currentTarget.textContent);
-			calculateBufferArr = calculateArr;
+			//calculateBufferArr = calculateArr;
 			screen.textContent += event.currentTarget.textContent; //Aneigescreen updaten
 		}
 
@@ -94,23 +101,46 @@ function stringToNum(arr) {
 }
 
 function calculate(arr) {
+	let divZero = false;
+	result = 0;
 	for (let i = 0; i < arr.length; i++) {
 		let e = arr[i];
 		if (["+", "-", "/", "*"].includes(e)) {
 			switch (e) {
 				case "+":
 					result = arr[i - 1] + arr[i + 1];
-					return result;
+					arr = arr.slice(i + 2);
+					arr.unshift(result);
+					i = 0;
+					break;
 				case "-":
 					result = arr[i - 1] - arr[i + 1];
-					return result;
+					arr = arr.slice(i + 2);
+					arr.unshift(result);
+					i = 0;
+					break;
 				case "/":
-					result = arr[i - 1] / arr[i + 1];
-					return result;
+					if (arr[i + 1] != 0) {
+						result = arr[i - 1] / arr[i + 1];
+						arr = arr.slice(i + 2);
+						arr.unshift(result);
+						i = 0;
+					} else {
+						divZero = true;
+					}
+					break;
 				case "*":
 					result = arr[i - 1] * arr[i + 1];
-					return result;
+					arr = arr.slice(i + 2);
+					arr.unshift(result);
+					i = 0;
+					break;
 			}
 		}
+	}
+	if (divZero != true) {
+		return result;
+	} else {
+		alert("Divison durch 0 nicht möglich!");
 	}
 }
