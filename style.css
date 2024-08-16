@@ -74,6 +74,7 @@ button {
     flex-wrap: wrap;
     gap: 2px; /* Gap between items */
     padding: 2px;
+    justify-content: flex-end;
 }
 
 .btnOp {
@@ -87,6 +88,10 @@ button {
     font-size: 200%;
     border-radius: 5px;
     height: calc(100% / 4); /* 5 Reihen insgesamt */
+    min-width: 33.83px;
+    min-height: 55.5px;
+    max-width: 33.83px;
+    max-height: 55.5px;
 }
 
 .btnOp:hover {
@@ -104,6 +109,10 @@ button {
     font-size: 200%;
     border-radius: 5px;
     height: calc(100% / 4); /* 5 Reihen insgesamt */
+    min-width: 44.8px;
+    min-height: 55.5px;
+    max-width: 44.8px;
+    max-height: 55.5px;
 }
 
 .btnCalc:hover {
