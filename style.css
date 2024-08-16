@@ -88,7 +88,7 @@ button {
 }
 
 .numbers > * {
-    flex: 1 1 calc(25% ); /* 3 Felder pro Reihe, minus Abstand */
+    flex: 1 1 calc(25%); /* 3 Felder pro Reihe, minus Abstand */
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -128,6 +128,11 @@ button {
 
 .btnClear:hover {
     background-color: #d78220;
+}
+
+.numbers > *:disabled {
+    background-color: #67366e;
+    cursor: not-allowed;
 }
 
 @media (hover: none) {

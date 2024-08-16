@@ -26,12 +26,15 @@ buttons.forEach((btn, i) => {
 function operate(event) {
   if (event.type == "touchstart") {
     const currentTime = new Date().getTime();
-    if (currentTime - lastTouchTime < 300) {
+    if (currentTime - lastTosuchTime < 300) {
       // 300ms ist ein typischer Zeitraum für Doppeltippen
       event.preventDefault(); // Verhindert Doppeltippen
     }
     lastTouchTime = currentTime;
   }
+
+  determineDec(calculateArr);
+
   if (event.currentTarget.textContent == "=") {
     calculateArr = calculateArr.map((field) => (field == "," ? "." : field));
     calculateArr.forEach((field) => {
@@ -102,11 +105,21 @@ function operate(event) {
 
 //function concatenateNum (field)
 
+function determineDec(arr) {
+  let decCount = arr.reduce((acc, char) => (char == "," ? acc + 1 : acc), 0);
+  if (decCount >= 1) {
+    document.getElementById(",").disabled = true;
+  } else {
+    document.getElementById(",").disabled = false;
+  }
+}
+
 function clearAll() {
   resultArr = [];
   calculateArr = [];
   screen.textContent = "";
   result = 0;
+  document.getElementById(",").disabled = false;
 }
 
 function stringToNum(arr) {
