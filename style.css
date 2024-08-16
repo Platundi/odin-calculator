@@ -36,7 +36,7 @@ button {
     min-height: 388px;
     max-width: 226px;
     max-height: 388px;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .screen {
