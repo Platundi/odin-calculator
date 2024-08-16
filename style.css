@@ -65,6 +65,10 @@ button {
     flex-wrap: wrap;
     gap: 2px; /* Gap between items */
     padding: 2px;
+    min-width: 149.3px;
+    max-width: 149.3px;
+    max-height: 226px;
+    min-height: 226px;
 }
 
 .operations {
