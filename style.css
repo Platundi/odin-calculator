@@ -3,6 +3,10 @@ html, body {
 }
 
 body {
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     margin: 0;
     padding: 1em;
     display: flex;
@@ -10,44 +14,66 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; 
+}
+
+button {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .screen {
     display: flex;
-    flex: 1 1 100%;
-    padding: 1em;
+    flex: 0 0 25%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    padding: 2px;
     border: 2px solid rgb(89, 89, 89);
-    background-color: rgba(173, 255, 47, 0.5);
+    background-color: rgb(172, 255, 47);
     overflow-x: auto; /* Aktiviert den horizontalen Scrollbalken */
     white-space: nowrap; /* Verhindert Umbrüche, damit der Text in einer Zeile bleibt */
+    border-radius: 10px;
+    font-size: 250%;
+    min-height: 1.5em;
+    max-width: 100%; /* Prevent the item from growing wider than the container */
+    max-height: 100%; /* Prevent the item from growing taller than the container */
 }
 
 .calculator {
     display: flex;
-    flex-wrap: wrap;
-    border: 2px solid rgb(89, 89, 89);
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 2px solid #121212;
     padding: 1em;
-    height: 450px;
-    width: 300px;
+    /* height: 45%; */
+    width: 30%;
+    gap: 2px;
+    border-radius: 10px;
+    align-content: stretch;
+    min-width: 226px;
+    min-height: 388px;
+    max-width: 226px;
+    max-height: 388px;
+    overflow: hidden;
 }
 
 .numbers {
-    flex: 3 1 auto;
+    flex: 1 1 auto;
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Gap between items */
-    padding: 1em;
+    gap: 2px; /* Gap between items */
+    padding: 2px;
 }
 
 .operations {
     flex: 1 1 auto;
     display: flex;
+    box-sizing: border-box;
     flex-wrap: wrap;
-    gap: 10px; /* Gap between items */
-    padding: 1em;
+    gap: 2px; /* Gap between items */
+    padding: 2px;
 }
 
 .btnOp {
@@ -56,11 +82,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #6e6e6e;
-    color: white;
-    font-size: 1.5em;
+    background-color: #11dfff;
+    color: rgb(0, 0, 0);
+    font-size: 200%;
     border-radius: 5px;
-    height: calc(100% / 4 - 10px); /* 5 Reihen insgesamt */
+    height: calc(100% / 4); /* 5 Reihen insgesamt */
+}
+
+.btnOp:hover {
+    background-color: #12b9d3;
 }
 
 .btnCalc {
@@ -69,37 +99,61 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #6e6e6e;
-    color: white;
-    font-size: 1.5em;
+    background-color: #e120ff;
+    color: rgb(0, 0, 0);
+    font-size: 200%;
     border-radius: 5px;
-    height: calc(100% / 4 - 10px); /* 5 Reihen insgesamt */
+    height: calc(100% / 4); /* 5 Reihen insgesamt */
+}
+
+.btnCalc:hover {
+    background-color: #b31aca;
 }
 
 .buttons {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     flex: 1;
+    max-width: 100%; /* Prevent the item from growing wider than the container */
+    max-height: 100%; /* Prevent the item from growing taller than the container */
 }
 
-.btnCalc, .btnOp {
+.btnCalc, .btnOp, .btnClear {
     transition: box-shadow 0.2s, transform 0.1s, background-color 0.3s ease;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-.btnCalc:active, .btnOp:active {
+.btnCalc:active, .btnOp:active, .btnClear:active {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     transform: translateY(3px);
-}
-
-.btnCalc:hover, .btnOp:hover {
-    background-color: #474747;;
 }
 
 @media (hover: none) {
     .btnCalc:active, .btnOp {
         background-color: #474747;
     }
+}
+
+.clear {
+    display: flex;
+    flex: 1;
+}
+
+.btnClear {
+    flex: 1;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff9a27;
+    color: rgb(0, 0, 0);
+    font-size: 200%;
+    border-radius: 5px;
+}
+
+.btnClear:hover {
+    background-color: #d78220;
 }

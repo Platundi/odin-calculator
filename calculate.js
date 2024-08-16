@@ -7,9 +7,10 @@ let currentString = "";
 let result = 0;
 let lastTouchTime = 0;
 let clear = false;
+let divZero = false;
 
 let screen = document.querySelector(".screen");
-let buttons = document.querySelectorAll(".btnCalc, .btnOp");
+let buttons = document.querySelectorAll(".btnCalc, .btnOp, .btnClear");
 buttons.forEach((btn, i) => {
 	const isTouchDevice = "ontouchstart" in document.documentElement;
 	if (isTouchDevice) {
@@ -47,18 +48,25 @@ function operate(event) {
 			resultArr.push(currentString); // Zusammengeführte Nummern in neues Array
 		}
 		resultArr = stringToNum(resultArr);
-		result = calculate(resultArr).toLocaleString("de-DE");
-		// result = result.toLocaleString("de-DE");
-		screen.textContent = result;
-		calculateArr.push(event.currentTarget.textContent);
-		//calculateBufferArr = calculateArr;
-		resultArr.push(event.currentTarget.textContent);
-		logArray.push(resultArr);
-		logArray[logArray.length - 1].push(Number(result));
-		// logArray.push(result);
-		resultLogArray.push(result);
-		resultArr = [];
-		clear = true;
+		result = calculate(resultArr);
+		if (divZero == false) {
+			result.toLocaleString("de-DE");
+			// result = result.toLocaleString("de-DE");
+			screen.textContent = result;
+			calculateArr.push(event.currentTarget.textContent);
+			//calculateBufferArr = calculateArr;
+			resultArr.push(event.currentTarget.textContent);
+			logArray.push(resultArr);
+			logArray[logArray.length - 1].push(Number(result));
+			// logArray.push(result);
+			resultLogArray.push(result);
+			resultArr = [];
+			clear = true;
+		} else {
+			clearAll();
+		}
+	} else if (event.currentTarget.textContent == "AC") {
+		clearAll();
 	} else {
 		if (clear == true) {
 			calculateArr = [];
@@ -90,6 +98,13 @@ function operate(event) {
 
 //function concatenateNum (field)
 
+function clearAll() {
+	resultArr = [];
+	calculateArr = [];
+	screen.textContent = "";
+	result = 0;
+}
+
 function stringToNum(arr) {
 	for (let i = 0; i < arr.length; i++) {
 		let e = arr[i];
@@ -101,7 +116,7 @@ function stringToNum(arr) {
 }
 
 function calculate(arr) {
-	let divZero = false;
+	divZero = false;
 	result = 0;
 	for (let i = 0; i < arr.length; i++) {
 		let e = arr[i];
