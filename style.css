@@ -116,8 +116,10 @@ button {
     justify-content: center;
     /* align-items: center; */
     flex: 1;
-    max-width: 100%; /* Prevent the item from growing wider than the container */
-    max-height: 100%; /* Prevent the item from growing taller than the container */
+    min-width: 190px;
+    min-height: 226px;
+    max-width: 190px;
+    max-height: 226px;
 }
 
 .btnCalc, .btnOp, .btnClear {
@@ -132,8 +134,14 @@ button {
 }
 
 @media (hover: none) {
-    .btnCalc:active, .btnOp {
-        background-color: #474747;
+    .btnCalc:active {
+        background-color: #b31aca;
+    }
+    .btnOp:active {
+        background-color: #12b9d3;
+    }
+    .btnClear:active {
+        background-color: #d78220;
     }
 }
 
