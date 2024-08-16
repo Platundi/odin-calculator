@@ -23,6 +23,22 @@ button {
     font-style: normal;
 }
 
+.calculator {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 2px solid #121212;
+    padding: 1em;
+    gap: 2px;
+    border-radius: 10px;
+    align-content: stretch;
+    min-width: 226px;
+    min-height: 388px;
+    max-width: 226px;
+    max-height: 388px;
+    overflow: hidden;
+}
+
 .screen {
     display: flex;
     flex: 0 0 25%;
@@ -40,127 +56,8 @@ button {
     max-height: 100%; /* Prevent the item from growing taller than the container */
 }
 
-.calculator {
+.clearContainer {
     display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    border: 2px solid #121212;
-    padding: 1em;
-    /* height: 45%; */
-    width: 30%;
-    gap: 2px;
-    border-radius: 10px;
-    align-content: stretch;
-    min-width: 226px;
-    min-height: 388px;
-    max-width: 226px;
-    max-height: 388px;
-    overflow: hidden;
-}
-
-.numbers {
-    flex: 1 1 auto;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px; /* Gap between items */
-    padding: 2px;
-    min-width: 149.3px;
-    max-width: 149.3px;
-    max-height: 226px;
-    min-height: 226px;
-}
-
-.operations {
-    flex: 1 1 auto;
-    display: flex;
-    box-sizing: border-box;
-    flex-wrap: wrap;
-    gap: 2px; /* Gap between items */
-    padding: 2px;
-    justify-content: flex-end;
-}
-
-.btnOp {
-    flex: 1 1 calc(100% - 10px); /* 1 Felder pro Reihe, minus Abstand */
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #11dfff;
-    color: rgb(0, 0, 0);
-    font-size: 200%;
-    border-radius: 5px;
-    height: calc(100% / 4); /* 5 Reihen insgesamt */
-    min-width: 33.83px;
-    min-height: 55.5px;
-    max-width: 33.83px;
-    max-height: 55.5px;
-}
-
-.btnOp:hover {
-    background-color: #12b9d3;
-}
-
-.btnCalc {
-    flex: 1 1 calc(33.333% - 10px); /* 3 Felder pro Reihe, minus Abstand */
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #e120ff;
-    color: rgb(0, 0, 0);
-    font-size: 200%;
-    border-radius: 5px;
-    height: calc(100% / 4); /* 5 Reihen insgesamt */
-    min-width: 44.8px;
-    min-height: 55.5px;
-    max-width: 44.8px;
-    max-height: 55.5px;
-}
-
-.btnCalc:hover {
-    background-color: #b31aca;
-}
-
-.buttons {
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    flex: 1;
-    min-width: 190px;
-    min-height: 226px;
-    max-width: 190px;
-    max-height: 226px;
-}
-
-.btnCalc, .btnOp, .btnClear {
-    transition: box-shadow 0.2s, transform 0.1s, background-color 0.3s ease;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-
-.btnCalc:active, .btnOp:active, .btnClear:active {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    transform: translateY(3px);
-}
-
-@media (hover: none) {
-    .btnCalc:active {
-        background-color: #b31aca;
-    }
-    .btnOp:active {
-        background-color: #12b9d3;
-    }
-    .btnClear:active {
-        background-color: #d78220;
-    }
-}
-
-.clear {
-    display: flex;
-    flex: 1;
 }
 
 .btnClear {
@@ -175,6 +72,72 @@ button {
     border-radius: 5px;
 }
 
+.buttons {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex: 1;
+}
+
+.numbers {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.numbers > * {
+    flex: 1 1 calc(25% ); /* 3 Felder pro Reihe, minus Abstand */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    font-size: 200%;
+    border-radius: 5px;
+    height: calc(100% / 4); /* 5 Reihen insgesamt */
+}
+
+.btnOp {
+    background-color: #11dfff;
+}
+
+.btnCalc {
+    background-color: #e120ff;
+}
+
+.btnCalc, .btnOp, .btnClear {
+    transition: box-shadow 0.2s, transform 0.1s, background-color 0.3s ease;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.btnOp:hover {
+    background-color: #12b9d3;
+}
+
+.btnCalc:hover {
+    background-color: #b31aca;
+}
+
+.btnCalc:active, .btnOp:active, .btnClear:active {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(3px);
+}
+
 .btnClear:hover {
     background-color: #d78220;
+}
+
+@media (hover: none) {
+    .btnCalc:active {
+        background-color: #b31aca;
+    }
+    .btnOp:active {
+        background-color: #12b9d3;
+    }
+    .btnClear:active {
+        background-color: #d78220;
+    }
 }

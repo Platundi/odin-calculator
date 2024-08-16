@@ -68,6 +68,9 @@ function operate(event) {
     }
   } else if (event.currentTarget.textContent == "AC") {
     clearAll();
+  } else if (event.currentTarget.textContent == "C") {
+    calculateArr.pop();
+    screen.textContent = screen.textContent.slice(0, -1);
   } else {
     if (clear == true) {
       calculateArr = [];
@@ -214,6 +217,12 @@ function key(event) {
       break;
     case "Escape":
       document.getElementById("AC").click();
+      break;
+    case "Backspace":
+      document.getElementById("C").click();
+      break;
+    case "Enter":
+      document.getElementById("=").click();
       break;
   }
 }
